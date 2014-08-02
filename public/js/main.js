@@ -9,6 +9,13 @@ var w, h;
 
 window.onload = load;
 
+// Set up Firebase
+//var firepadDiv = document.getElementById('firepad');
+//var firepadRef = new Firebase('<firebase url...>');
+//var codeMirror = CodeMirror(firepadDiv, { lineWrapping: true });
+//var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+    //{ richTextShortcuts: true, richTextToolbar: true });
+
 function load() {
 	init();
 	render();
@@ -65,4 +72,3 @@ function update(dt) {
 function render(dt) {
 
 }
-

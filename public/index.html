@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <title>YC Hacks VR</title>
   <link rel="stylesheet" href="css/style.css">
+  <!--CodeMirror-->
+  <link rel="stylesheet" href="css/codemirror.css" />
+  <!--Firepad-->
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/0.1.4/firepad.css" />
 </head>
 <body>
 <div id="container">
@@ -14,7 +18,9 @@
 	</div>
 
 	<div id="" class="screen">
-		put a firepad window here
+    <!--Firepad coding screen-->
+		<div id="firepad">
+    </div>
 	</div>
 
 </div>
@@ -26,7 +32,19 @@
 <script src="js/lib/CSS3DRenderer.js"></script>
 <script src="js/lib/VREffect.js"></script>
 <script src="js/lib/VRControls.js"></script>
-
+<!--CodeMirror-->
+<script src="js/lib/codemirror.js"></script>
+<!--Firepad-->
+<script src="https://cdn.firebase.com/libs/firepad/0.1.4/firepad-min.js"></script>
+<!--Firebase-->
+<script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'>
+  // Set up Firebase
+var firepadDiv = document.getElementById('firepad');
+var firepadRef = new Firebase('https://blazing-fire-6125.firebaseio.com/'); // insert firebase url here
+var codeMirror = CodeMirror(firepadDiv, { lineWrapping: true });
+var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+    { richTextShortcuts: true, richTextToolbar: true });
+</script>
 <script src="js/main.js"></script>
 
 </body>

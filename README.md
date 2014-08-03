@@ -6,6 +6,9 @@ Most hackathons now these days require you to be physically present at their ven
 Some of our hottest features include:
 
 -Collaborative coding IDE's and text editors courtesy of Firepad.io
+
 -Toggle between sitting at your screen with your code and walking around the venue to socialize with others
+
 -Online chat with other hackers and mentors through Firebase's real-time chat system
+
 -Lots of cool stuff to keep you entertained through your #STACKED experience, such as #HELLYEAHs (Dave Fontenot style of course), Nyan Cats, a variety of fun stickers, and much more!

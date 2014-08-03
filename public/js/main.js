@@ -4,17 +4,13 @@
 var clock = new THREE.Clock();
 var time = Date.now();
 
+//firebase
+var firepadDiv, firepadRef, codeMirror, firepad;
+
 var container;
 var w, h;
 
 window.onload = load;
-
-// Set up Firebase
-//var firepadDiv = document.getElementById('firepad');
-//var firepadRef = new Firebase('<firebase url...>');
-//var codeMirror = CodeMirror(firepadDiv, { lineWrapping: true });
-//var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
-    //{ richTextShortcuts: true, richTextToolbar: true });
 
 function load() {
 	init();
@@ -31,7 +27,22 @@ function init() {
 
 //setup firebase/firepad stuff
 function setupFire() {
+	firepadDiv = document.getElementById('firepad');
+	firepadRef = new Firebase('https://blazing-fire-6125.firebaseio.com/'); // insert firebase url here
+	codeMirror = CodeMirror(firepadDiv, {
+		lineNumbers: true,
+		mode: 'javascript',
+		theme: 'monokai' });
+	firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+			{  });
 
+	firepad.on('ready', function() { firepad.setText('x'); });
+	//// Initialize contents.
+	//firepad.on('ready', function() {
+		//if (firepad.isHistoryEmpty()) {
+	//		firepad.setText('// JavaScript Editing with Firepad!\nfunction go() {\n var message = "Hello, world.";\n console.log(message);\n}');
+		//}
+	//});
 }
 
 function setupRendering() {

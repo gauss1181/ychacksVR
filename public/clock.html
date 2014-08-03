@@ -11,11 +11,20 @@
   <link rel="stylesheet" href="http://www.firepad.io/examples/firepad.css" />
 </head>
 <body>
+<script src="countdown_v4.3/countdown.js"></script>
 <div id="container">
   <!--Countdown clock goes here-->
+  <p style="font-size:200%">Time left until submission deadline: August 4, 2014, 12:00 AM PDT</p>
+  <script>
+  var myCountdownTest = new Countdown({
+                  year  : 2014,
+                  month : 8, 
+                  day   : 4,
+                  width : 900, 
+                  height  : 120
+                  });
+  </script>
 </div>
-
-<script src="countdown_v4.3/countdown.js"></script>
 <script src="js/lib/lodash.min.js"></script>
 <script src="js/lib/jquery.min.js"></script>
 <script src="js/lib/tween.min.js"></script>

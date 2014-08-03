@@ -3,13 +3,21 @@
 <head>
   <script src="https://cdn.firebase.com/js/client/1.0.15/firebase.js"></script>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <h1>Hacker Chat</h1>
 <!--Scroll through chat box to view all older messages-->
 <div id='messagesDiv' style="border-style:solid; height:600px; overflow:auto;"></div>
-<input type='text' id='nameInput' placeholder='Name'>
-<input type='text' size="100" id='messageInput' placeholder='Message (press Enter to submit)'>
+<input type='text' id='nameInput' class='control-form' placeholder='Name'>
+<input type='text' size="100" id='messageInput' class='control-form' placeholder='Message (press Enter to submit)'>
 <script>
 
   // Get a reference to the root of the chat data.

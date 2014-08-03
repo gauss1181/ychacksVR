@@ -34,12 +34,12 @@ function load() {
 
 
 function init() {
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 20000);
+	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 600);
 
 	camera.position.set(0,0,0);
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog(0xffffff, 0, 1500);
+	//scene.fog = new THREE.Fog(0xffffff, 0, 1500);
 
 	fullScreenButton = document.querySelector('.button');
 
@@ -288,7 +288,7 @@ function setupScreens(n) {
 
 		con.add(_mesh);
 
-		//con.add(mesh);
+		con.add(mesh);
 
 		var object = con;
 

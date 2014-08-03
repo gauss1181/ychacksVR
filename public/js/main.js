@@ -37,7 +37,7 @@ function setupFire() {
 	firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
 			{ richTextShortcuts: true, richTextToolbar: true });
 
-	firepad.on('ready', function() { firepad.setText('x'); });
+	firepad.on('ready', function() { firepad.setText(''); });
 	//// Initialize contents.
 	//firepad.on('ready', function() {
 		//if (firepad.isHistoryEmpty()) {

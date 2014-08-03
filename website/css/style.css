@@ -308,9 +308,23 @@ a:focus {
     background-color: #219ab3;
 }
 
+#contact {
+    width: 100%;
+    padding: 50px 0;
+    color: #fff;
+    background: url(../img/downloads-bg2.jpg) no-repeat center center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
 ul.banner-social-buttons {
     margin-top: 0;
 }
+
 
 @media(max-width:1199px) {
     ul.banner-social-buttons {

@@ -125,8 +125,8 @@ a:focus {
 }*/
 
 #features li {
-    padding: 30px 30px 30px 50px;
-    margin-bottom: 20px;
+    padding: 20px 30px 20px 40px;
+    margin-bottom: 15px;
     list-style: none;
     border-radius: 10px;
     background-color: #FF6501;

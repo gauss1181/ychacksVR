@@ -114,6 +114,26 @@ a:focus {
     background-color: rgba(255,255,255,.3);
 }
 
+#features {
+    text-align: left;
+}
+
+/*#features{
+    padding: 30px 30px 30px 50px;
+    border-radius: 10px;
+    background-color: #F57623;
+}*/
+
+#features li {
+    padding: 20px 30px 20px 40px;
+    margin-bottom: 15px;
+    list-style: none;
+    border-radius: 10px;
+    background-color: #FF6501;
+    font-size: 1.3em;
+}
+
+
 #team {
     padding-bottom: 15% !important;
 }

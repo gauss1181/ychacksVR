@@ -77,7 +77,7 @@ function setupScene() {
 
 
 	var screens = [{
-		url: 'http://ycombinator.com',
+		url: 'firepad.html',//'http://ycombinator.com',
 		position: [0, 0, -1000],
 		rotation: [0, 0, 0],
 		size: 1,

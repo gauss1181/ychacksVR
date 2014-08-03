@@ -16,6 +16,7 @@ var vrControls;
 
 var objects = [];
 
+var maxAnisotropy;
 
 var has = {
 	WebVR: !!navigator.mozGetVRDevices || !!navigator.getVRDevices
@@ -31,7 +32,7 @@ function load() {
 
 
 function init() {
-	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
+	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 20000);
 
 	camera.position.set(0,0,0);
 
@@ -49,6 +50,8 @@ function init() {
 	setupAudio();
 	
 	setupRendering();
+
+	setupSkymap();
 
 	setupEvents();
 }
@@ -77,15 +80,18 @@ function setupScene() {
 
 	texture.repeat = new THREE.Vector2(20, 20);
 
-	var material = new THREE.MeshBasicMaterial( { color: 0xcccccc, map: texture, transparent: true, opacity: 0.6 } );
+	var material = new THREE.MeshBasicMaterial( { color: 0xcccccc, map: texture, transparent: 0, opacity: 0.6 } );
 
 	var mesh = new THREE.Mesh(geometry, material);
+
+	//mesh.position.y = -200;
+
 	mesh.receiveShadow = true;
 
 	scene.add(mesh);
 
 
-	setupTeams(4);
+	setupTeams();
 
 	setupPhotos();
 
@@ -116,18 +122,30 @@ function setupScene() {
 
 function setupTeams() {
 
-	var teams = ['awesome','hacky','hellll yeah!', 'fuck it ship it'];
+	var teams = [
+		'awesome','hacky','hellll yeah!', 'fuck it ship it',
+		'cpp','js-ftw','fasf','xvlkjdslfks'];
 
 	for (var i = 0; i < teams.length; i++) {
 
 		var container = setupScreens(3);
 
-		container.position.z = -30 * i;
+		container.position.z = -50 * i;
 		// todo: put containers in random spots
 
 		scene.add(container);
 	}
 
+}
+
+function setupSkymap() {
+	var mesh	= THREEx.createSkymap('yc');
+
+	mesh.scale.set(5,5,5);
+
+	console.log(mesh);
+	scene.add( mesh );
+	console.log('skymap added');
 }
 
 function setupScreens(n) {
@@ -136,30 +154,50 @@ function setupScreens(n) {
 
 	var col = Math.random() * 0xffffff;
 
-	var paths = ['img/checker.png'];
+	function randi(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
 
 	for (var i = 0; i < n; i++) {
-		var path = paths[0];
+		var path = 'img/img-screenshots/sc-'+randi(1,16)+'.jpg';
 		var texture = THREE.ImageUtils.loadTexture(path);
+		texture.anisotropy = maxAnisotropy;
+		texture.minFilter = texture.magFilter = THREE.LinearMipMapLinearFilter;
 
-		var geometry = new THREE.BoxGeometry(15, 11, 0.5);
+		var con = new THREE.Object3D();
+
+		var geometry = new THREE.BoxGeometry(1024+15, 560+15, 10);
 
 
 		var material = new THREE.MeshBasicMaterial( {
-			color: col,
-			map: texture } );
+			color: 0x999999 } );
 
 		var mesh = new THREE.Mesh(geometry, material);
 
-		var object = mesh;
+		mesh.position.z = -15;
+
+		var geo = new THREE.PlaneGeometry(1024, 560);
+		var mat = new THREE.MeshBasicMaterial({
+			map: texture
+		});
+
+		var _mesh = new THREE.Mesh(geo, mat);
+
+		con.add(_mesh);
+
+		con.add(mesh);
+
+		var object = con;
 
 		object.position.x = (i - 0.5*(n-1)) * 17;
 		object.position.y = 9;
-		object.position.z = -15 + (Math.abs((i - 0.5*(n-1))) * 2.5);
+		object.position.z = -15 + (Math.abs((i - 0.5*(n-1))) * 3.2);
 
 		object.rotation.y = (i - 0.5*(n-1)) * -0.4;
 
-		cont.add(mesh);
+		object.scale.set(0.016, 0.016, 0.016);
+
+		cont.add(object);
 
 		objects.push(object);
 	}
@@ -168,23 +206,42 @@ function setupScreens(n) {
 }
 
 function setupPhotos() {
-
+	// todo: load photos for a photo wall?
 }
 
 function setupAudio() {
-	
+	// create WebAudio API context
+	var context = new AudioContext()
+
+	// Create lineOut
+	var lineOut = new WebAudiox.LineOut(context)
+
+	// load a sound and play it immediately
+	WebAudiox.loadBuffer(context, 'audio/audio-bkg-remix.mp3', function(buffer){
+		// init AudioBufferSourceNode
+		var source  = context.createBufferSource();
+		source.buffer = buffer
+		source.connect(lineOut.destination)
+
+		source.loop = true;
+
+		// start the sound now
+		source.start(0);
+	});	
 }
 
 function setupRendering() {
 	renderer = new THREE.WebGLRenderer({
-		antialias: false,
+		antialias: 1
 	});
 	renderer.setClearColor(0xffffff, 1);
+
+	maxAnisotropy = renderer.getMaxAnisotropy();
 
 	var DK1 = [1280, 800];
 	var DK2 = [1920, 1080];
 
-	var HMD = DK1;
+	var HMD = DK2;
 
 	function VREffectLoaded(error) {
 		if (error) {

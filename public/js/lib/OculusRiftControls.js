@@ -174,6 +174,7 @@ THREE.OculusRiftControls = function ( camera ) {
 		moveObject.translateY( velocity.y );
 		moveObject.translateZ( velocity.z );
 
+		moveObject.position.y = 10;
 		if ( moveObject.position.y < 10 ) {
 
 			velocity.y = 0;

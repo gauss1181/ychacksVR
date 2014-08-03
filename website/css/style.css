@@ -114,6 +114,29 @@ a:focus {
     background-color: rgba(255,255,255,.3);
 }
 
+#team {
+    padding-bottom: 15% !important;
+}
+
+#about-1 {
+    float: left;
+    width: 33%;
+    text-align: center;
+}
+
+#about-2 {
+    display: inline-block;
+    width: 33%;
+    text-align: center;
+}
+
+#about-3 {
+    float: right;
+    width: 33%;
+    text-align: center;
+}
+
+
 @media(min-width:767px) {
     .navbar {
         padding: 20px 0;
@@ -347,6 +370,27 @@ ul.banner-social-buttons {
         margin-bottom: 0;
     }
 }
+
+@media(max-width:450px) {
+    #about-1 {
+        float: none !important;
+        width: 100% !important;
+        margin-bottom: 50px;
+    }
+
+     #about-2 {
+        float: none !important;
+        width: 100% !important;
+        margin-bottom: 50px;
+    }
+
+     #about-3 {
+        float: none !important;
+        width: 100% !important;
+        margin-bottom: 50px;
+    }
+}
+
 
 footer {
     padding: 50px 0;

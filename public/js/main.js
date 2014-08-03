@@ -81,31 +81,45 @@ function setupScene() {
 		url: 'firepad.html',//'http://ycombinator.com',
 		position: [0, 0, -1100],
 		rotation: [0, 0, 0],
-		size: 1,
-		aspect: 13/9
-	}];
+		size: [1200,900],
+		transparent: false
+	},
+	{
+		url: 'clock.html',
+		position: [10, 460, -1000],
+		rotation: [0, 0, 0],
+		size: [1000, 270],
+		transparent: true
+	}
+	];
 
 	var screen;
 
 	for (var i = 0; i < screens.length; i++) {
 		screen = screens[i];
+		var elSize = screen.size;
 
 		var win = document.createElement('div');
 
 		var element = document.createElement('iframe');
 		element.setAttribute('src', screen.url);
 		//element.setAttribute('seamless', true);
-		element.style.width = Math.round(900*screen.aspect)+'px';
-		element.style.height = 900+'px';
-		var color = new THREE.Color( Math.random() * 0xffffff ).getStyle();
-		element.style.background = color;
+		element.style.width = elSize[0]+'px';
+		element.style.height = elSize[1]+'px';
+		if (screen.transparent) {
+			element.style.backgroundColor = "transparent";
+			element.allowTransparency="true";
+			element.frameBorder = 0;
+		}
+		//var color = new THREE.Color( Math.random() * 0xffffff ).getStyle();
+		//element.style.background = color;
 
 		var navBar = document.createElement('input');
-		navBar.setAttribute('type', 'text');
-		navBar.className = 'nav-bar';
-		navBar.value = screen.url;
+		//navBar.setAttribute('type', 'text');
+		//navBar.className = 'nav-bar';
+		//navBar.value = screen.url;
 
-		win.appendChild(navBar);
+		//win.appendChild(navBar);
 		win.appendChild(element);
 
 		var object = new THREE.CSS3DObject(win);
@@ -149,7 +163,7 @@ function setupScene() {
 
 	var elements = [
 		{
-			position: [0, 800, -950],
+			position: [0, 850, -950],
 			rotation: [0.4, 0, 0],
 			scale: [3,3,3],
 			src: '../img-logo/logo-v2.png',

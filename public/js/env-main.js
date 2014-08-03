@@ -58,6 +58,8 @@ function init() {
 	setupSkymap();
 
 	setupEvents();
+
+
 }
 
 function setupLights() {
@@ -123,6 +125,38 @@ function setupScene() {
 
 		objects.push(object);
 	}
+}
+
+var paused = false;
+var catPlayed = false;
+var sound;
+function setupNyanCat() {
+	if (catPlayed) {
+		sound.toggle();
+		return;
+	}
+
+	catPlayed = true;
+	var nyanCat	= new THREEx.NyanCat()
+
+	nyanCat.container.position.y = 40;
+	nyanCat.container.position.z = -100;
+
+	nyanCat.container.rotation.x = 0.4;
+
+	scene.add( nyanCat.container )
+	updateFns.push(function(delta, now){
+		if( paused )	return
+		nyanCat.update(delta, now)
+	})
+
+	sound	= new THREEx.NyanCatSound();
+
+	var nyanRainbow	= new THREEx.NyanCatRainbow()
+	scene.add( nyanRainbow.container )
+	updateFns.push(function(delta, now){
+		nyanRainbow.update(delta, now)
+	})
 }
 
 function setupTeams() {
@@ -309,6 +343,10 @@ function onWindowResize() {
 function keyPressed (e) {
 	if (e.keyCode == 'R'.charCodeAt(0)) {
 		//vrControls._vrInput.resetSensor();
+	}
+
+	if (e.keyCode == 'N'.charCodeAt(0)) {
+		setupNyanCat();
 	}
 }
 

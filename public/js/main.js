@@ -90,6 +90,20 @@ function setupScene() {
 		rotation: [0, 0, 0],
 		size: [1000, 270],
 		transparent: true
+	},
+	{
+		url: 'chat.html',
+		position: [900, 0, -1000],
+		rotation: [0, -0.5, 0],
+		size: [500,900],
+		transparent: false
+	},
+	{
+		url: 'whiteboard.html',
+		position: [-1060, 0, -900],
+		rotation: [0, 0.5, 0],
+		size: [900,900],
+		transparent: false		
 	}
 	];
 

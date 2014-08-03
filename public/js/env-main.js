@@ -18,6 +18,8 @@ var objects = [];
 
 var maxAnisotropy;
 
+var updateFns = [];
+
 var has = {
 	WebVR: !!navigator.mozGetVRDevices || !!navigator.getVRDevices
 };
@@ -49,6 +51,8 @@ function init() {
 
 	setupAudio();
 	
+	setupVideo();
+
 	setupRendering();
 
 	setupSkymap();
@@ -74,17 +78,18 @@ function setupScene() {
 	var geometry = new THREE.PlaneGeometry(2000, 2000, 1, 1);
 	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-	var texture = THREE.ImageUtils.loadTexture('img/checker.png');
+	var texture = THREE.ImageUtils.loadTexture('img/gnd.jpg');
 	texture.wrapS = THREE.RepeatWrapping;
 	texture.wrapT = THREE.RepeatWrapping;
 
-	texture.repeat = new THREE.Vector2(20, 20);
+	texture.repeat = new THREE.Vector2(10, 10);
 
-	var material = new THREE.MeshBasicMaterial( { color: 0xcccccc, map: texture, transparent: 0, opacity: 0.6 } );
+	var material = new THREE.MeshBasicMaterial( { color: 0xcccccc, map: texture,
+		transparent: 0, opacity: 0.6 } );
 
 	var mesh = new THREE.Mesh(geometry, material);
 
-	//mesh.position.y = -200;
+	mesh.position.y = -10;
 
 	mesh.receiveShadow = true;
 
@@ -126,16 +131,42 @@ function setupTeams() {
 		'awesome','hacky','hellll yeah!', 'fuck it ship it',
 		'cpp','js-ftw','fasf','xvlkjdslfks'];
 
-	for (var i = 0; i < teams.length; i++) {
+	for (var r = 0; r < 1; r++) {
+		for (var i = 0; i < teams.length; i++) {
 
-		var container = setupScreens(3);
+			var container = setupScreens(3);
 
-		container.position.z = -50 * i;
-		// todo: put containers in random spots
+			container.position.z = -50 * i;
 
-		scene.add(container);
+			container.position.x = r * 100 - 250;
+			// todo: put containers in random spots
+
+			scene.add(container);
+		}
 	}
 
+}
+
+function setupVideo() {
+
+	var webcamTexture	= new THREEx.WebcamTexture();
+
+	updateFns.push(function(delta, now){
+		webcamTexture.update(delta, now);
+	});
+
+	var geometry	= new THREE.BoxGeometry(100,80,100);
+	var material	= new THREE.MeshBasicMaterial({
+		map	: webcamTexture.texture
+	});
+	var mesh	= new THREE.Mesh( geometry, material );	
+
+	mesh.rotation.x = 0.5;
+
+	mesh.position.y = 110;
+	mesh.position.z = -400;
+
+	scene.add(mesh);
 }
 
 function setupSkymap() {
@@ -166,11 +197,11 @@ function setupScreens(n) {
 
 		var con = new THREE.Object3D();
 
-		var geometry = new THREE.BoxGeometry(1024+15, 560+15, 10);
+		var geometry = new THREE.BoxGeometry(1024+30, 560+30, 10);
 
 
 		var material = new THREE.MeshBasicMaterial( {
-			color: 0x999999 } );
+			color: col } );
 
 		var mesh = new THREE.Mesh(geometry, material);
 
@@ -185,7 +216,7 @@ function setupScreens(n) {
 
 		con.add(_mesh);
 
-		con.add(mesh);
+		//con.add(mesh);
 
 		var object = con;
 
@@ -281,8 +312,18 @@ function keyPressed (e) {
 	}
 }
 
-function animate(t) {
+var lastTimeMsec= null;
+
+function animate(nowMsec) {
 	requestAnimationFrame(animate);
+
+	lastTimeMsec	= lastTimeMsec || nowMsec-1000/60;
+	var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec);
+	lastTimeMsec	= nowMsec;
+
+	updateFns.forEach(function(updateFn){
+		updateFn(deltaMsec/1000, nowMsec/1000)
+	});
 
 	var vrState = vrControls.getVRState();
 

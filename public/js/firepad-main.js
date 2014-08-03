@@ -29,6 +29,10 @@ function setupFire() {
 	firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
 			{ richTextShortcuts: true, richTextToolbar: true });
 
-	firepad.on('ready', function() { firepad.setText('x'); });
+	firepad.on('ready', function() {
+	
+		firepad.setText("var hacking = true;\nif (!hacking) {\n\tconsole.log('get hacking');\n} else {\n\tconsole.log('keep hacking');\n}");
+
+	});
 }
 

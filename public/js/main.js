@@ -28,10 +28,10 @@ function init() {
 
 	var IPD = 150;
 
-	camera = new THREE.PerspectiveCamera(75, 640 / 800, 1, 5000);
+	camera = new THREE.PerspectiveCamera(75, 640 / 800, 1, 10000);
 	camera.position.x = -IPD;
 
-	camera2 = new THREE.PerspectiveCamera(75, 640 / 800, 1, 5000);
+	camera2 = new THREE.PerspectiveCamera(75, 640 / 800, 1, 10000);
 	camera2.position.x = IPD;
 
 	//setupFire();
@@ -49,7 +49,8 @@ function setupFire() {
 		lineWrapping: true,
 		lineNumbers: true,
 		mode: 'javascript',
-		theme: 'monokai' });
+		theme: 'monokai'
+	});
 	firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
 			{ richTextShortcuts: true, richTextToolbar: true });
 
@@ -78,7 +79,7 @@ function setupScene() {
 
 	var screens = [{
 		url: 'firepad.html',//'http://ycombinator.com',
-		position: [0, 0, -1000],
+		position: [0, 0, -1100],
 		rotation: [0, 0, 0],
 		size: 1,
 		aspect: 13/9
@@ -148,12 +149,19 @@ function setupScene() {
 
 	var elements = [
 		{
-			position: [0, 800, -1000],
-			rotation: [0.6, 0, 0],
+			position: [0, 800, -950],
+			rotation: [0.4, 0, 0],
 			scale: [3,3,3],
 			src: '../img-logo/logo-v2.png',
 			size: [232,178]
-		}
+		}/*,
+		{
+			position: [0, -1000, 0],
+			rotation: [1, 0, 0],
+			scale: [10,10,10],
+			src: 'img/checker.png',
+			size: [512,512]
+		}*/
 	];
 
 	for (var i = 0; i < elements.length; i++) {

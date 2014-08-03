@@ -8,10 +8,19 @@
   body {
     background-color: #f3f3f3;
   }
+
+  .firepad-toolbar-wrapper {
+    line-height: 50px !important;
+  }
+
+  .firepad-btn {
+    padding: 10px 20px !important;
+    font-size: 32px !important;
+  }
   </style>
   <!--CodeMirror-->
-  <link rel="stylesheet=" href="css/monokai.css">
   <link rel="stylesheet" href="http://www.firepad.io/examples/codemirror/lib/codemirror.css" />
+  <link rel="stylesheet" href="css/monokai.css">
   <!--Firepad-->
   <link rel="stylesheet" href="http://www.firepad.io/examples/firepad.css" />
 </head>
@@ -19,7 +28,7 @@
 <div id="container">
   <img src="logo-v2.png" />
   <!--Firepad live coding screen-->
-  <div id="firepad" class="screen" style="width:1140px; height:540px; background-color:#f3f3f3; border:1px solid black;">
+  <div id="firepad" class="screen" style="width:100%; height:680px; background-color:#f3f3f3; border:1px solid black;">
   </div>
 
 </div>
@@ -31,6 +40,7 @@
 <!--Firebase-->
 <script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
 
+<script src="js/lib/javascript.js"></script>
 <script src="js/firepad-main.js"></script>
 
 </body>

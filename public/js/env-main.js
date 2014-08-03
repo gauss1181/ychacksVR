@@ -33,6 +33,8 @@ function load() {
 function init() {
 	camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
 
+	camera.position.set(0,0,0);
+
 	scene = new THREE.Scene();
 	scene.fog = new THREE.Fog(0xffffff, 0, 1500);
 
@@ -43,6 +45,9 @@ function init() {
 
 	setupScene();
 	setupLights();
+
+	setupAudio();
+	
 	setupRendering();
 
 	setupEvents();
@@ -72,13 +77,19 @@ function setupScene() {
 
 	texture.repeat = new THREE.Vector2(20, 20);
 
-	var material = new THREE.MeshBasicMaterial( { color: 0xcccccc, map: texture } );
+	var material = new THREE.MeshBasicMaterial( { color: 0xcccccc, map: texture, transparent: true, opacity: 0.6 } );
 
 	var mesh = new THREE.Mesh(geometry, material);
 	mesh.receiveShadow = true;
 
 	scene.add(mesh);
 
+
+	setupTeams(4);
+
+	setupPhotos();
+
+	return;
 
 	// cubes
 	geometry = new THREE.BoxGeometry(30, 30, 30);
@@ -97,17 +108,71 @@ function setupScene() {
 		object.rotation.y = Math.random() * 2 * Math.PI;
 		object.rotation.z = Math.random() * 2 * Math.PI;
 
-		object.scale.x = Math.random() * 2 + 1;
-		object.scale.y = Math.random() * 2 + 1;
-		object.scale.z = Math.random() * 2 + 1;
-
-		object.castShadow = true;
-		object.receiveShadow = true;
-
 		scene.add(object);
 
 		objects.push(object);
 	}
+}
+
+function setupTeams() {
+
+	var teams = ['awesome','hacky','hellll yeah!', 'fuck it ship it'];
+
+	for (var i = 0; i < teams.length; i++) {
+
+		var container = setupScreens(3);
+
+		container.position.z = -30 * i;
+		// todo: put containers in random spots
+
+		scene.add(container);
+	}
+
+}
+
+function setupScreens(n) {
+
+	var cont = new THREE.Object3D();
+
+	var col = Math.random() * 0xffffff;
+
+	var paths = ['img/checker.png'];
+
+	for (var i = 0; i < n; i++) {
+		var path = paths[0];
+		var texture = THREE.ImageUtils.loadTexture(path);
+
+		var geometry = new THREE.BoxGeometry(15, 11, 0.5);
+
+
+		var material = new THREE.MeshBasicMaterial( {
+			color: col,
+			map: texture } );
+
+		var mesh = new THREE.Mesh(geometry, material);
+
+		var object = mesh;
+
+		object.position.x = (i - 0.5*(n-1)) * 17;
+		object.position.y = 9;
+		object.position.z = -15 + (Math.abs((i - 0.5*(n-1))) * 2.5);
+
+		object.rotation.y = (i - 0.5*(n-1)) * -0.4;
+
+		cont.add(mesh);
+
+		objects.push(object);
+	}
+
+	return cont;
+}
+
+function setupPhotos() {
+
+}
+
+function setupAudio() {
+	
 }
 
 function setupRendering() {
@@ -155,7 +220,7 @@ function onWindowResize() {
 
 function keyPressed (e) {
 	if (e.keyCode == 'R'.charCodeAt(0)) {
-		vrControls._vrInput.resetSensor();
+		//vrControls._vrInput.resetSensor();
 	}
 }
 

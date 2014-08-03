@@ -2,8 +2,5 @@
 *.ai
 *.sketch
 *.DS_Store
-<<<<<<< HEAD
-.DS_Store
-=======
 img-logo/.DS_Store
->>>>>>> 0d23d407e92a3d33ccbd6ec4988e4a96b229f49a
+*.psd

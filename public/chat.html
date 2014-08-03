@@ -7,7 +7,7 @@
 <body>
 <div id='messagesDiv' style="border-style:solid;"></div>
 <input type='text' id='nameInput' placeholder='Name'>
-<input type='text' id='messageInput' placeholder='Message...'>
+<input type='text' size="100" id='messageInput' placeholder='Message...'>
 <script>
 
   // Get a reference to the root of the chat data.
@@ -24,7 +24,7 @@
   });
 
   // Add a callback that is triggered for each chat message.
-  messagesRef.limit(10).on('child_added', function (snapshot) {
+  messagesRef.on('child_added', function (snapshot) {
     var message = snapshot.val();
     $('<div/>').text(message.text).prepend($('<em/>')
       .text(message.name+': ')).appendTo($('#messagesDiv'));

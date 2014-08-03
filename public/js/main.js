@@ -181,8 +181,26 @@ function setupScene() {
 			rotation: [0.4, 0, 0],
 			scale: [3,3,3],
 			src: '../img-logo/logo-v2.png',
-			size: [232,178]
-		}/*,
+			size: [232,178],
+			sticker: false
+		},
+		{ // stickers
+			position: [1000, 1000, -950],
+			rotation: [0.4, -0.5, 0],
+			scale: [3,3,3],
+			src: '../img-stickers/firework-m.png',
+			size: [424,434],
+			sticker: true
+		},
+		{ // stickers
+			position: [-1000, 1000, -950],
+			rotation: [0.4, 0.5, 0],
+			scale: [3,3,3],
+			src: '../img-stickers/firework-s.png',
+			size: [424,434],
+			sticker: true
+		}		
+		/*,
 		{
 			position: [0, -1000, 0],
 			rotation: [1, 0, 0],
@@ -191,6 +209,19 @@ function setupScene() {
 			size: [512,512]
 		}*/
 	];
+
+	function updateBox( box, params) {
+		/*var s = box.style,
+			transform = 'scale(' + Math.floor( params.scale ) + ')';
+
+		console.log(transform);
+		s.mozTransform = transform;
+		s.transform = transform;*/
+
+		//console.log(params.scale);
+
+		box.scale.fromArray([params.scale,params.scale,params.scale]);
+	}
 
 	for (var i = 0; i < elements.length; i++) {
 		var el = elements[i];
@@ -203,6 +234,7 @@ function setupScene() {
 		//div.style.backgroundColor = 'red';
 		div.style.backgroundImage = 'url('+el.src+')';
 
+		//div.dataset.scale = 0;
 		//var img = document.createElement('img');
 		//img.setAttribute('src', el.src);
 
@@ -224,6 +256,37 @@ function setupScene() {
 		object2.rotation.fromArray(el.rotation);
 		object2.scale.fromArray(el.scale);
 		scene2.add(object2);
+
+
+
+		if (el.sticker) { // fireworks
+			var tween1 = new TWEEN.Tween( { scale: 0.1 } )
+				.to( { scale: 5 }, 750 )
+				.repeat( Infinity )
+				.delay( 1000 )
+				.yoyo( true )
+				.easing( TWEEN.Easing.Cubic.InOut )
+				.onUpdate( function() {
+					var obj = object;
+					updateBox( obj, this );
+					//this.
+				})
+				.start();
+
+			var tween2 = new TWEEN.Tween( { scale: 0.1 } )
+				.to( { scale: 5 }, 750 )
+				.repeat( Infinity )
+				.delay( 1000 )
+				.yoyo( true )
+				.easing( TWEEN.Easing.Cubic.InOut )
+				.onUpdate( function() {
+					var obj2 = object2;
+					updateBox( obj2, this );
+					//this.
+				})
+				.start();	
+		}
+
 	}
 
 }

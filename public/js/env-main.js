@@ -59,6 +59,7 @@ function init() {
 
 	setupEvents();
 
+	setupLogo();
 
 }
 
@@ -159,13 +160,35 @@ function setupNyanCat() {
 	})
 }
 
+function setupLogo() {
+	var path = 'img/logo-v2.png';
+	var texture = THREE.ImageUtils.loadTexture(path);
+	texture.anisotropy = maxAnisotropy;
+	texture.minFilter = texture.magFilter = THREE.LinearMipMapLinearFilter;
+
+	var geo = new THREE.PlaneGeometry(20, 10);
+	var mat = new THREE.MeshBasicMaterial({
+		map: texture,
+		transparent: true
+	});
+
+	var mesh = new THREE.Mesh(geo, mat);
+
+	mesh.position.y = 10;
+	mesh.position.z = -40;
+
+	mesh.scale.set(2,2,2);
+
+	scene.add(mesh);
+}
+
 function setupTeams() {
 
 	var teams = [
 		'awesome','hacky','hellll yeah!', 'fuck it ship it',
 		'cpp','js-ftw','fasf','xvlkjdslfks'];
 
-	for (var r = 0; r < 1; r++) {
+	for (var r = 0; r < 6; r++) {
 		for (var i = 0; i < teams.length; i++) {
 
 			var container = setupScreens(3);
@@ -189,7 +212,7 @@ function setupVideo() {
 		webcamTexture.update(delta, now);
 	});
 
-	var geometry	= new THREE.BoxGeometry(100,80,100);
+	var geometry	= new THREE.BoxGeometry(150,120,100);
 	var material	= new THREE.MeshBasicMaterial({
 		map	: webcamTexture.texture
 	});
@@ -197,7 +220,7 @@ function setupVideo() {
 
 	mesh.rotation.x = 0.5;
 
-	mesh.position.y = 110;
+	mesh.position.y = 140;
 	mesh.position.z = -400;
 
 	scene.add(mesh);
@@ -218,6 +241,21 @@ function setupScreens(n) {
 	var cont = new THREE.Object3D();
 
 	var col = Math.random() * 0xffffff;
+
+	var geo = new THREE.CylinderGeometry( 10, 10, 10, 10 );
+	var mat = new THREE.MeshPhongMaterial({ color: col });
+
+	var m = new THREE.Mesh(geo, mat);
+
+	//m.rotation.set(1.4,0,0);
+	m.position.set(0,-10,0);
+
+	cont.add(m);
+
+	/*var mesh = new THREEx.Text('Team name');
+	mesh.scale.multiplyScalar(1/2);
+	mesh.position.y	= -1;
+	cont.add(mesh);*/
 
 	function randi(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;

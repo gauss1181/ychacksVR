@@ -61,6 +61,10 @@ a:focus {
     font-weight: 400;
 }
 
+.navbar-brand {
+    padding-bottom: 10px;
+}
+
 .navbar-custom {
     margin-bottom: 0;
     border-bottom: 1px solid rgba(255,255,255,.3);
